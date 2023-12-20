@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap">
+    <title>Store</title>
+</head>
+<body>
+    <header>
+        <h1 class="store-title">STORE</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><button id="view-cart-btn" class="btn-teal">View Cart</button></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="filters">
+        <label for="region-filter">Region:</label>
+        <select id="region-filter">
+            <option value="All">All</option>
+            <option value="APAC">APAC</option>
+            <option value="NAM">NAM</option>
+            <option value="SAM">SAM</option>
+            <option value="EU">EU</option>
+            <option value="GLOBAL">GLOBAL</option>
+        </select>
+
+        <label for="esim-filter">eSIM Compatibility:</label>
+        <select id="esim-filter">
+            <option value="All">All</option>
+            <option value="YES">YES</option>
+            <option value="NO">NO</option>
+        </select>
+
+        <label for="form-factor-filter">Form Factors:</label>
+        <select id="form-factor-filter">
+            <option value="All">All</option>
+            <option value="M.2">M.2</option>
+            <option value="minPIC">minPIC</option>
+            <option value="LGA">LGA</option>
+            <option value="MiniPCI">MiniPCI</option>
+        </select>
+    </section>
+    
+
+    <section id="products">
+        
+    </section>
+
+    <aside id="shopping-cart">
+        <h2>Shopping Cart</h2>
+        <ul id="cart-items"></ul>
+        <p>Total: $<span id="cart-total">0.00</span></p>
+    </aside>
+    <div id="shopping-cart">
+        <ul id="cart-items"></ul>
+        <p id="cart-total">Total: $0.00</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Your Store. All rights reserved.</p>
+    </footer>
+
+
+    <script src="cart.js"></script>
+</body>
+</html>
