@@ -42,17 +42,85 @@ function addToCart(product) {
 
 
 
+
 function updateCartAndShowDetails(product) {
     const cartItemsContainer = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
 
-    const cartItem = document.createElement('li');
-    cartItem.textContent = `${product.name} - $${product.price.toFixed(2)}`;
+    // Check if the product is already in the cart
+    const existingCartItem = Array.from(cartItemsContainer.children).find(item =>
+        item.dataset.product === product.name
+    );
 
-    cartItemsContainer.appendChild(cartItem);
+    if (existingCartItem) {
+        // If the product is already in the cart, update its quantity
+        const quantityElement = existingCartItem.querySelector('.cart-item-quantity');
+        const newQuantity = parseInt(quantityElement.textContent) + 1;
+        quantityElement.textContent = newQuantity;
+    } else {
+        // If the product is not in the cart, create a new cart item
+        const cartItem = document.createElement('li');
+        cartItem.dataset.product = product.name;
+        cartItem.classList.add('cart-item');
 
+        const itemName = document.createElement('span');
+        itemName.textContent = `${product.name} - $${product.price.toFixed(2)}`;
+
+        const quantityButton5 = createQuantityButton(5, product);
+        const quantityButton10 = createQuantityButton(10, product);
+        const removeButton = createRemoveButton(product);
+
+        cartItem.appendChild(itemName);
+        cartItem.appendChild(quantityButton5);
+        cartItem.appendChild(quantityButton10);
+        cartItem.appendChild(removeButton);
+
+        cartItemsContainer.appendChild(cartItem);
+    }
+
+    // Update the total price
     const cartTotal = parseFloat(cartTotalElement.textContent);
     cartTotalElement.textContent = (cartTotal + product.price).toFixed(2);
+}
+
+function createQuantityButton(quantity, product) {
+    const button = document.createElement('button');
+    button.textContent = `x${quantity}`;
+    button.classList.add('quantity-btn');
+    button.addEventListener('click', () => addMultipleToCart(product, quantity));
+    return button;
+}
+
+function createRemoveButton(product) {
+    const button = document.createElement('button');
+    button.textContent = 'Remove';
+    button.classList.add('remove-btn');
+    button.addEventListener('click', () => removeFromCart(product));
+    return button;
+}
+
+function addMultipleToCart(product, quantity) {
+    for (let i = 0; i < quantity; i++) {
+        addToCart(product);
+    }
+}
+
+function removeFromCart(product) {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+
+    const cartItem = Array.from(cartItemsContainer.children).find(item =>
+        item.dataset.product === product.name
+    );
+
+    if (cartItem) {
+        // Decrease the total price
+        const cartTotal = parseFloat(cartTotalElement.textContent);
+        cartTotalElement.textContent = (cartTotal - product.price).toFixed(2);
+
+        // Remove the item from the DOM
+        cartItem.remove();
+    }
 }
 
 document.querySelectorAll('.add-to-cart-btn').forEach(button => {
